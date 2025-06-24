@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthenticatedAxios } from '../lib/axios';
-import { Box, Typography, CircularProgress } from '@mui/material';
+import { 
+  Box, 
+  Typography, 
+  CircularProgress, 
+  Card, 
+  CardContent,
+  Grid,
+} from '@mui/material';
+import { 
+  AttachMoney, 
+  ShoppingCart, 
+  TrendingUp 
+} from '@mui/icons-material';
 
 interface SalesData {
   totalSales: number;
@@ -18,7 +30,7 @@ const Dashboard: React.FC = () => {
     const fetchSalesData = async () => {
       try {
         const response = await axios.get('/sales/summary');
-        setSalesData(response.data);
+        setSalesData(response.data.data);
         setError(null);
       } catch (err) {
         setError('Failed to fetch sales data');
@@ -49,36 +61,105 @@ const Dashboard: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
         Dashboard
       </Typography>
+      
       {salesData && (
-        <Box display="grid" gridTemplateColumns="repeat(3, 1fr)" gap={3}>
-          <Box p={3} bgcolor="background.paper" borderRadius={1}>
-            <Typography variant="h6" gutterBottom>
-              Total Sales
-            </Typography>
-            <Typography variant="h4">
-              ${salesData.totalSales.toFixed(2)}
-            </Typography>
-          </Box>
-          <Box p={3} bgcolor="background.paper" borderRadius={1}>
-            <Typography variant="h6" gutterBottom>
-              Total Orders
-            </Typography>
-            <Typography variant="h4">
-              {salesData.totalOrders}
-            </Typography>
-          </Box>
-          <Box p={3} bgcolor="background.paper" borderRadius={1}>
-            <Typography variant="h6" gutterBottom>
-              Average Order Value
-            </Typography>
-            <Typography variant="h4">
-              ${salesData.averageOrderValue.toFixed(2)}
-            </Typography>
-          </Box>
-        </Box>
+        <Grid container spacing={3}>
+          {/* Total Sales Card */}
+          <Grid item xs={12} sm={6} md={4}>
+            <Card 
+              elevation={2}
+              sx={{
+                height: '100%',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                '&:hover': {
+                  elevation: 4,
+                  transform: 'translateY(-2px)',
+                  transition: 'all 0.3s ease-in-out'
+                }
+              }}
+            >
+              <CardContent sx={{ p: 3 }}>
+                <Box display="flex" alignItems="center" justifyContent="space-between">
+                  <Box>
+                    <Typography variant="h6" sx={{ mb: 1, opacity: 0.9 }}>
+                      Total Sales
+                    </Typography>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                      ${(salesData.totalSales || 0).toFixed(2)}
+                    </Typography>
+                  </Box>
+                  <AttachMoney sx={{ fontSize: 48, opacity: 0.8 }} />
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          {/* Total Orders Card */}
+          <Grid item xs={12} sm={6} md={4}>
+            <Card 
+              elevation={2}
+              sx={{
+                height: '100%',
+                background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                color: 'white',
+                '&:hover': {
+                  elevation: 4,
+                  transform: 'translateY(-2px)',
+                  transition: 'all 0.3s ease-in-out'
+                }
+              }}
+            >
+              <CardContent sx={{ p: 3 }}>
+                <Box display="flex" alignItems="center" justifyContent="space-between">
+                  <Box>
+                    <Typography variant="h6" sx={{ mb: 1, opacity: 0.9 }}>
+                      Total Orders
+                    </Typography>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                      {salesData.totalOrders || 0}
+                    </Typography>
+                  </Box>
+                  <ShoppingCart sx={{ fontSize: 48, opacity: 0.8 }} />
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          {/* Average Order Value Card */}
+          <Grid item xs={12} sm={6} md={4}>
+            <Card 
+              elevation={2}
+              sx={{
+                height: '100%',
+                background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                color: 'white',
+                '&:hover': {
+                  elevation: 4,
+                  transform: 'translateY(-2px)',
+                  transition: 'all 0.3s ease-in-out'
+                }
+              }}
+            >
+              <CardContent sx={{ p: 3 }}>
+                <Box display="flex" alignItems="center" justifyContent="space-between">
+                  <Box>
+                    <Typography variant="h6" sx={{ mb: 1, opacity: 0.9 }}>
+                      Average Order Value
+                    </Typography>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                      ${(salesData.averageOrderValue || 0).toFixed(2)}
+                    </Typography>
+                  </Box>
+                  <TrendingUp sx={{ fontSize: 48, opacity: 0.8 }} />
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
       )}
     </Box>
   );

@@ -22,6 +22,7 @@ import {
   PointOfSale as PointOfSaleIcon,
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
+  AccountBalance as AccountBalanceIcon,
 } from '@mui/icons-material';
 import { UserButton } from '@clerk/clerk-react';
 
@@ -47,6 +48,7 @@ const MainLayout: React.FC = () => {
     { text: 'Purchase Orders', icon: <InventoryIcon />, path: '/purchase-orders' },
     { text: 'Sales', icon: <ReceiptIcon />, path: '/sales' },
     { text: 'POS', icon: <PointOfSaleIcon />, path: '/pos' },
+    { text: 'Cash Register', icon: <AccountBalanceIcon />, path: '/cash-register' },
   ];
 
   const drawer = (

@@ -5,6 +5,7 @@ import Dashboard from '../pages/Dashboard';
 import Items from '../pages/Items';
 import Sales from '../pages/Sales';
 import POS from '../pages/POS';
+import CashRegister from '../pages/CashRegister';
 import { CreatePurchaseOrder } from '../pages/CreatePurchaseOrder';
 
 const PurchaseOrdersList = () => <div style={{padding: 32}}><h2>Purchase Orders List</h2><p>Coming soon...</p></div>;
@@ -20,6 +21,7 @@ const AppRoutes: React.FC = () => {
         <Route path="purchase-orders/create" element={<CreatePurchaseOrder />} />
         <Route path="sales" element={<Sales />} />
         <Route path="pos" element={<POS />} />
+        <Route path="cash-register" element={<CashRegister />} />
       </Route>
     </Routes>
   );
